@@ -1,0 +1,43 @@
+---
+title: "Car Dealer Database"
+output: html_document
+date: "2025-05-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Install necessary libraries
+library(dotenv)
+library(RPostgres)
+```
+
+```{r connections, include=FALSE}
+# Install if not already
+#install.packages("ini")
+
+# Load the package
+library(ini)
+
+# Read config
+config <- read.ini("db_config.ini")
+db <- config$postgresql
+
+# Connect using RPostgreSQL or RPostgres
+library(RPostgres)
+con <- dbConnect(
+  Postgres(),
+  host = db$host,
+  dbname = db$database,
+  user = db$user,
+  password = db$password,
+  port = as.integer(db$port)
+)
+```
+
+List all tables in the database
+```{r}
+dbListTables(con)
+```
+
+
