@@ -1,6 +1,6 @@
 ---
 title: "Car Dealer Database"
-output: html_document
+output: github_document
 date: "2025-05-23"
 ---
 
@@ -35,9 +35,47 @@ con <- dbConnect(
 )
 ```
 
-List all tables in the database
-```{r}
-dbListTables(con)
+Create database schema **car_dealer**
+```{r create_schema}
+tryCatch({
+  # write operation
+  schema_query <- "CREATE SCHEMA IF NOT EXISTS car_dealer;"
+  dbExecute(con, schema_query)
+}, error = function(e) {
+  message("Error: ", e$message)
+})
+```
+
+Create tables into the car_dealer schema
+```{r cars_table}
+cars_table_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.cars (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    hire_date DATE,
+    salary NUMERIC(10, 2)
+);
+"
+dbExecute(con, cars_table_query)
+#dbWriteTable(con, cars_table_query)
 ```
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r disconnect, include=FALSE}
+dbDisconnect(con)
+```
