@@ -18,25 +18,46 @@ tryCatch({
 
     ## [1] 0
 
-Create tables into the car_dealer schema
+Create cars table into the car_dealer schema
 
 ``` r
-cars_table_query <- "
+cars_query <- "
   CREATE TABLE IF NOT EXISTS car_dealer.cars (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    department VARCHAR(50),
-    hire_date DATE,
-    salary NUMERIC(10, 2)
-);
+    car_id SERIAL PRIMARY KEY,
+    make VARCHAR(25),
+    model VARCHAR(25),
+    year INTEGER,
+    price NUMERIC(10, 2),
+    mileage INTEGER,
+    color VARCHAR(25)
+  );
 "
-dbExecute(con, cars_table_query)
+dbExecute(con, cars_query)
 ```
 
     ## NOTICE:  relation "cars" already exists, skipping
 
     ## [1] 0
 
+Create customers table into the car_dealer schema
+
 ``` r
-#dbWriteTable(con, cars_table_query)
+customer_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.customers (
+    customer_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
+    email VARCHAR(50),
+    phone CHAR(10),
+    address VARCHAR(50),
+    city VARCHAR(25),
+    state CHAR(2),
+    zip_code CHAR(5)
+  );
+"
+dbExecute(con, customer_query)
 ```
+
+    ## NOTICE:  relation "customers" already exists, skipping
+
+    ## [1] 0
