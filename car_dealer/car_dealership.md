@@ -1,4 +1,4 @@
-Car Dealer Database
+Car Dealership Database
 ================
 2025-05-23
 
@@ -13,8 +13,6 @@ tryCatch({
   message("Error: ", e$message)
 })
 ```
-
-    ## NOTICE:  schema "car_dealer" already exists, skipping
 
     ## [1] 0
 
@@ -34,8 +32,6 @@ cars_query <- "
 "
 dbExecute(con, cars_query)
 ```
-
-    ## NOTICE:  relation "cars" already exists, skipping
 
     ## [1] 0
 
@@ -58,6 +54,39 @@ customer_query <- "
 dbExecute(con, customer_query)
 ```
 
-    ## NOTICE:  relation "customers" already exists, skipping
+    ## [1] 0
+
+Create employees table into the car_dealer schema
+
+``` r
+employee_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.employees (
+    employee_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
+    role VARCHAR(25)
+  );
+"
+dbExecute(con, employee_query)
+```
+
+    ## [1] 0
+
+Create sales table into the car_dealer schema
+
+``` r
+sale_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.sales (
+    sale_id SERIAL PRIMARY KEY,
+    car_id INT, -- car id from Cars table (Foreign Key)
+    customer_id INT, -- customer id from Customers table (Foreign Key)
+    sale_date DATE, -- the date when the car sale was made
+    sale_price DECIMAL(10, 2), -- car sale price
+    FOREIGN KEY (car_id) REFERENCES car_dealer.cars(car_id),
+    FOREIGN KEY (customer_id) REFERENCES car_dealer.customers(customer_id)
+  );
+"
+dbExecute(con, sale_query)
+```
 
     ## [1] 0

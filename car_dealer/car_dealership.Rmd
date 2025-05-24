@@ -1,5 +1,5 @@
 ---
-title: "Car Dealer Database"
+title: "Car Dealership Database"
 output: github_document
 date: "2025-05-23"
 ---
@@ -31,7 +31,7 @@ con <- dbConnect(
 ```
 
 Create database schema **car_dealer**
-```{r create_schema}
+```{r create_schema, message=FALSE}
 tryCatch({
   # write operation
   schema_query <- "CREATE SCHEMA IF NOT EXISTS car_dealer;"
@@ -42,7 +42,7 @@ tryCatch({
 ```
 
 Create cars table into the car_dealer schema
-```{r cars_table}
+```{r cars_table, message=FALSE}
 cars_query <- "
   CREATE TABLE IF NOT EXISTS car_dealer.cars (
     car_id SERIAL PRIMARY KEY,
@@ -58,7 +58,7 @@ dbExecute(con, cars_query)
 ```
 
 Create customers table into the car_dealer schema
-```{r customers_table}
+```{r customers_table, message=FALSE}
 customer_query <- "
   CREATE TABLE IF NOT EXISTS car_dealer.customers (
     customer_id SERIAL PRIMARY KEY,
@@ -76,7 +76,7 @@ dbExecute(con, customer_query)
 ```
 
 Create employees table into the car_dealer schema
-```{r customers_table}
+```{r employees_table, message=FALSE}
 employee_query <- "
   CREATE TABLE IF NOT EXISTS car_dealer.employees (
     employee_id SERIAL PRIMARY KEY,
@@ -89,7 +89,7 @@ dbExecute(con, employee_query)
 ```
 
 Create sales table into the car_dealer schema
-```{r customers_table}
+```{r sales_table, message=FALSE}
 sale_query <- "
   CREATE TABLE IF NOT EXISTS car_dealer.sales (
     sale_id SERIAL PRIMARY KEY,
@@ -101,7 +101,7 @@ sale_query <- "
     FOREIGN KEY (customer_id) REFERENCES car_dealer.customers(customer_id)
   );
 "
-dbExecute(con, employee_query)
+dbExecute(con, sale_query)
 ```
 
 
