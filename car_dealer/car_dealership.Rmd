@@ -75,6 +75,35 @@ customer_query <- "
 dbExecute(con, customer_query)
 ```
 
+Create employees table into the car_dealer schema
+```{r customers_table}
+employee_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.employees (
+    employee_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
+    role VARCHAR(25)
+  );
+"
+dbExecute(con, employee_query)
+```
+
+Create sales table into the car_dealer schema
+```{r customers_table}
+sale_query <- "
+  CREATE TABLE IF NOT EXISTS car_dealer.sales (
+    sale_id SERIAL PRIMARY KEY,
+    car_id INT, -- car id from Cars table (Foreign Key)
+    customer_id INT, -- customer id from Customers table (Foreign Key)
+    sale_date DATE, -- the date when the car sale was made
+    sale_price DECIMAL(10, 2), -- car sale price
+    FOREIGN KEY (car_id) REFERENCES car_dealer.cars(car_id),
+    FOREIGN KEY (customer_id) REFERENCES car_dealer.customers(customer_id)
+  );
+"
+dbExecute(con, employee_query)
+```
+
 
 
 
